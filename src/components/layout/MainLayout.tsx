@@ -1,4 +1,5 @@
 import { Layout, Menu, MenuProps } from "antd";
+import { Outlet } from "react-router-dom";
 
 // import { Content, Footer, Header } from "antd/es/layout/layout";
 const { Header, Content, Footer, Sider } = Layout;
@@ -41,8 +42,17 @@ const MainLayout = () => {
           console.log(collapsed, type);
         }}
       >
-        <div style={{ color: "white", textAlign: "center", height: "4rem" }}>
-          <h1> PH University</h1>{" "}
+        <div
+          style={{
+            color: "white",
+            textAlign: "center",
+            height: "4rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <h1> PH University</h1>
         </div>
         <Menu
           theme="dark"
@@ -60,7 +70,7 @@ const MainLayout = () => {
               minHeight: 360,
             }}
           >
-            <h1>This main content can be added here</h1>
+            <Outlet />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
