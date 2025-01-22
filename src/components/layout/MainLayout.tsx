@@ -1,9 +1,11 @@
-import { Layout, Menu, MenuProps } from "antd";
-import { NavLink, Outlet } from "react-router-dom";
+import { Layout, Menu } from "antd";
+import { Outlet } from "react-router-dom";
+import { adminSidebarItems } from "../../routes/admin.routes";
 
 // import { Content, Footer, Header } from "antd/es/layout/layout";
 const { Header, Content, Footer, Sider } = Layout;
 
+/*
 const items: MenuProps["items"] = [
   {
     key: "Dashboard",
@@ -28,6 +30,7 @@ const items: MenuProps["items"] = [
     ],
   },
 ];
+*/
 
 const MainLayout = () => {
   return (
@@ -58,7 +61,7 @@ const MainLayout = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={items}
+          items={adminSidebarItems}
         />
       </Sider>
       <Layout>
