@@ -11,7 +11,7 @@ const initialState: TAuthState = {
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setUser: (state, action) => {
@@ -25,6 +25,7 @@ const authSlice = createSlice({
     },
   },
 });
+  
 
 export const { setUser, logout } = authSlice.actions;
 
