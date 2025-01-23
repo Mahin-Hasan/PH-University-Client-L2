@@ -1,4 +1,3 @@
-
 import { TRoute, TUserPath } from "../types";
 
 export const routeGenerator = (items: TUserPath[]) => {
