@@ -13,7 +13,7 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const [login, { error }] = useLoginMutation();
-  console.log("error", error);
+  // console.log("error", error);
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in");
     try {
