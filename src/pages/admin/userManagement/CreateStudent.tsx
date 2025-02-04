@@ -1,3 +1,8 @@
+import { Button } from "antd";
+import PHForm from "../../../components/form/PHForm";
+import PHInput from "../../../components/form/PHInput";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+
 const studentDummyData = {
   password: "student123",
   student: {
@@ -34,10 +39,20 @@ const studentDummyData = {
 };
 
 const CreateStudent = () => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
+
+    const formData = new FormData(); //* must use new as FormData is a constructor func
+
+    formData.append("data", JSON.stringify(data));
+    // console.log(Object.fromEntries(formData)); //? Understanding how form data works
+  };
+
   return (
-    <div>
-      <h1>This is create student</h1>
-    </div>
+    <PHForm onSubmit={onSubmit}>
+      <PHInput type="text" name="name" label="Name" />
+      <Button htmlType="submit">Submit</Button>
+    </PHForm>
   );
 };
 
