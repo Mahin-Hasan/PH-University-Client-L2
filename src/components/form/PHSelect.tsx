@@ -5,9 +5,10 @@ type TPHSelectProps = {
   label: string;
   name: string;
   options: { value: string; label: string; disabled?: boolean }[];
+  disabled?: boolean;
 };
 
-const PHSelect = ({ label, name, options }: TPHSelectProps) => {
+const PHSelect = ({ label, name, options, disabled }: TPHSelectProps) => {
   return (
     //* Must maintain the controller structure properly or else react hook form will not work accordingly
     <Controller
@@ -19,6 +20,7 @@ const PHSelect = ({ label, name, options }: TPHSelectProps) => {
             {...field}
             options={options}
             size="large"
+            disabled={disabled}
           />
           {error && <small style={{ color: "red" }}>{error.message}</small>}
         </Form.Item>

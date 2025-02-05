@@ -36,7 +36,7 @@ const PHForm = ({
   const methods = useForm(formConfig);
 
   //for resetting the form after submit
-  const submit: SubmitHandler<FieldValues> = (data) => {
+ const submit: SubmitHandler<FieldValues> = (data) => {
     onSubmit(data);
     methods.reset();
   };
@@ -49,5 +49,6 @@ const PHForm = ({
     </FormProvider>
   );
 };
+
 
 export default PHForm;
