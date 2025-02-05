@@ -1,20 +1,34 @@
-import { Button, Space, Table, TableColumnsType, TableProps } from "antd";
+import {
+  Button,
+  Pagination,
+  Space,
+  Table,
+  TableColumnsType,
+  TableProps,
+} from "antd";
 import { useState } from "react";
 import { TQueryParam, TStudent } from "../../../types";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
 
-export type TTableData = Pick<TStudent, "name" | "fullName">; // using pick we can create new type by selecting required type from an existing type
+export type TTableData = Pick<TStudent, "fullName" | "id">; // using pick we can create new type by selecting required type from an existing type
 
 const StudentData = () => {
-  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+  const [params, setParams] = useState<TQueryParam[]>([]);
+  const [page, setPage] = useState(1);
 
   const {
     data: studentData,
     isLoading,
     isFetching,
-  } = useGetAllStudentsQuery(params); //? passing query for search params dynamically
+  } = useGetAllStudentsQuery([
+    { name: "limit", value: 3 },
+    { name: "page", value: page },
+    { name: "sort", value: "id" },
+    ...params,
+  ]); //? passing query for search params dynamically
 
   // console.log(studentData);
+  const metaData = studentData?.meta;
 
   const tableData = studentData?.data?.map(({ _id, fullName, id }) => ({
     key: _id, //? must use key or will give error
@@ -79,19 +93,23 @@ const StudentData = () => {
   //   );
   // }
   return (
-    <Table
-      loading={isFetching}
-      columns={columns}
-      dataSource={tableData}
-      onChange={onChange}
-      showSorterTooltip={{ target: "sorter-icon" }}
-    />
+    <>
+      <Table
+        loading={isFetching}
+        columns={columns}
+        dataSource={tableData}
+        onChange={onChange}
+        pagination={false}
+        showSorterTooltip={{ target: "sorter-icon" }}
+      />
+      <Pagination
+        current={page}
+        onChange={(value) => setPage(value)}
+        pageSize={metaData?.limit}
+        total={metaData?.total}
+      />
+    </>
   );
-  // return (
-  //   <div>
-  //     <h1>This is Academic semester compo</h1>
-  //   </div>
-  // );
 };
 
 export default StudentData;
