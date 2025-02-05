@@ -108,8 +108,8 @@ const CreateStudent = () => {
     };
 
     const formData = new FormData(); //* must use new as FormData is a constructor func
-
-    formData.append("file", data?.image); //! Must maintain proper backend structure or else it will give validation error
+ 
+    formData.append("file", data?.image); //! if backend deployed in vercel then image upload does not work | must create an upload folder in backend folder structure or else it will give error
     formData.append("data", JSON.stringify(studentData)); //! Must maintain proper backend structure or else it will give validation error
 
     addStudent(formData);
