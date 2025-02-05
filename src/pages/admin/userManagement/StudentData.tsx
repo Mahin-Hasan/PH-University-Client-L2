@@ -9,8 +9,12 @@ import {
 import { useState } from "react";
 import { TQueryParam, TStudent } from "../../../types";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
+import { Link } from "react-router-dom";
 
-export type TTableData = Pick<TStudent, "fullName" | "id">; // using pick we can create new type by selecting required type from an existing type
+export type TTableData = Pick<
+  TStudent,
+  "fullName" | "id" | "email" | "contactNo"
+>; // using pick we can create new type by selecting required type from an existing type
 
 const StudentData = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
@@ -30,11 +34,15 @@ const StudentData = () => {
   // console.log(studentData);
   const metaData = studentData?.meta;
 
-  const tableData = studentData?.data?.map(({ _id, fullName, id }) => ({
-    key: _id, //? must use key or will give error
-    fullName,
-    id,
-  }));
+  const tableData = studentData?.data?.map(
+    ({ _id, fullName, id, email, contactNo }) => ({
+      key: _id, //? must use key or will give error
+      fullName,
+      id,
+      email,
+      contactNo,
+    })
+  );
 
   const columns: TableColumnsType<TTableData> = [
     {
@@ -47,14 +55,26 @@ const StudentData = () => {
       key: "id",
       dataIndex: "id",
     },
-
+    {
+      title: "Email",
+      key: "email",
+      dataIndex: "email",
+    },
+    {
+      title: "Contact No",
+      key: "contactNo",
+      dataIndex: "contactNo",
+    },
     {
       title: "Action",
       key: "x",
-      render: () => {
+      render: (item) => {
+        // console.log(item);
         return (
           <Space>
-            <Button>Details</Button>
+            <Link to={`/admin/student-data/${item.key}`}>
+              <Button>Details</Button>
+            </Link>
             <Button>Update</Button>
             <Button>Block</Button>
           </Space>
